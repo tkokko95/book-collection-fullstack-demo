@@ -19,7 +19,7 @@ const update = async (data, id) => {
 
 const remove = async (id) => {
     const response = await axios.delete(`${baseUrl}/${id}`)
-    return response.data 
+    return response.data
 }
 
 const booksService = { getAll, create, update, remove }

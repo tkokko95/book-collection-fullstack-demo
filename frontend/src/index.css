@@ -3,49 +3,56 @@ button {
     padding: 5px 10px;
   }
 
-  button:disabled {
-        border: 1px solid #999999;
-        background-color: #cccccc;
-        color: #666666;
-        cursor: not-allowed;
-        pointer-events: none;
+button:disabled {
+      border: 1px solid #999999;
+      background-color: #cccccc;
+      color: #666666;
+      cursor: not-allowed;
+      pointer-events: none;
   }
 
-  button:hover {
-        background-color: white;
-  }
-  button:active {
-        background-color: grey;
-  }
+button:hover {
+      background-color: white;
+}
+button:active {
+      background-color: grey;
+}
 
-  input {
-        margin: 5px 5px;
-  }
+input {
+      margin: 5px 5px;
+}
 
-  .bookList {
-        border: 2px solid black;
-        min-width: 300px;
-        min-height: 300px;
-        max-height: 300px;
-        overflow: scroll;
-        float: left;
-        margin: 20px;
-  }
+.bookList {
+      border: 2px solid black;
+      min-width: 300px;
+      min-height: 300px;
+      max-height: 300px;
+      overflow: scroll;
+      float: left;
+      margin: 20px;
+}
 
-  .book {
-        cursor: pointer;
-        user-select: none;
-  }
+.book {
+      cursor: pointer;
+      user-select: none;
+}
 
-  .book:hover {
-        background-color: lightskyblue;
-        border: 1px solid black;
-  }
+.book:hover {
+      background-color: lightskyblue;
+      border: 1px solid black;
+}
 
-  .book:target {
-        border: 1px solid lightblue;
-  }
 
-  .bookForm {
-        float: left;
-  }
+.bookForm {
+      float: left;
+}
+
+.info {
+      border: 2px solid green;
+      background-color: lightgreen;
+}
+
+.error {
+      border: 2px solid red;
+      background-color: lightpink
+}

@@ -16,8 +16,10 @@ booksRouter.delete('/:id', async (request, response, next) => {
         if (!bookToDelete) {
             response.status(404).json({ error: 'Object ID doesn\'t exist' })
         }
-        await bookToDelete.remove()
-        response.status(204).end()
+        else {
+            await bookToDelete.remove()
+            response.status(204).end()
+        }
     } catch(error) {
         next(error)
     }
@@ -30,7 +32,9 @@ booksRouter.put('/:id', async (request, response, next) => {
         if (!updatedBook) {
             response.status(404).json({error:'Object ID doesn\'t exist'})
         }
-        response.json(updatedBook)
+        else {
+            response.json(updatedBook)
+        }
     } catch(error) {
         next(error)
     }

@@ -1,3 +1,4 @@
+import React from 'react'
 const BookList = ({ books, handleSelectionChange }) => {
 
     const sortedBooks = books.sort((a, b) => a.author.localeCompare(b.author))
@@ -6,9 +7,9 @@ const BookList = ({ books, handleSelectionChange }) => {
             {sortedBooks.map((book) => {
                 return(
                     <li
-                    key={book.id}
-                    className='book'
-                    onClick={()=> handleSelectionChange(book)}
+                        key={book.id}
+                        className='book'
+                        onClick={() => handleSelectionChange(book)}
                     >
                         {book.author} - {book.title}
                     </li>
