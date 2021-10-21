@@ -25,6 +25,7 @@ mongoose.connect(MONGO_URI, {
     })
 app.use(cors())
 app.use(express.json())
+app.use(express.static('build'))
 app.use('/api/books', booksRouter)
 if (process.env.NODE_ENV === 'test') {
     const testingRouter = require('./controllers/testing')
