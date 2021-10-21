@@ -11,12 +11,7 @@ const BookForm = ({ selectedBook, handleSelectionChange, fetchBooks, showNotific
     const editMode = selectedBook.title ? true : false
 
     const formDataIsValid = () => {
-        if (
-            formData.title
-            && formData.title.length <= 50
-            && formData.author
-            && formData.author.length <= 50
-            && formData.description.length <= 150) {
+        if (formData.title && formData.author) {
             return true
         }
         return false
@@ -33,11 +28,11 @@ const BookForm = ({ selectedBook, handleSelectionChange, fetchBooks, showNotific
             await fetchBooks()
             setFormData(blankForm)
             showNotification({
-                info: 'Book successfully added'
+                info: 'Book succesfully added'
             })
         } catch(error) {
             showNotification({
-                error: error.message
+                error: `${error}: Make sure that the title doesn't already exist`
             })
         }
     }
@@ -52,7 +47,7 @@ const BookForm = ({ selectedBook, handleSelectionChange, fetchBooks, showNotific
             })
         } catch(error) {
             showNotification({
-                error: `${error.message}: someone might have deleted this item`
+                error: `${error.message}: This item might have been deleted`
             })
         } finally {
             await fetchBooks()
@@ -69,7 +64,7 @@ const BookForm = ({ selectedBook, handleSelectionChange, fetchBooks, showNotific
             })
         } catch(error) {
             showNotification({
-                error: `${error.message}: someone might already have deleted this item`
+                error: `${error.message}: This item might have already been deleted`
             })
         } finally {
             await fetchBooks()
@@ -90,28 +85,33 @@ const BookForm = ({ selectedBook, handleSelectionChange, fetchBooks, showNotific
     return(
         <div className='bookForm'>
             <label>
-                Title:
+                Title *
                 <br/>
                 <input
                     type='text'
                     value={formData.title}
                     name='title'
+                    id='titleInput'
                     onChange={handleChange}
+                    maxLength='50'
                 />
             </label>
             <br />
             <label>
-                Author:
+                Author *
                 <br/>
                 <input
                     type='text'
                     value={formData.author}
                     name='author'
-                    onChange={handleChange}/>
+                    id='authorInput'
+                    onChange={handleChange}
+                    maxLength='50'
+                />
             </label>
             <br />
             <label>
-                Description:
+                Description
                 <br/>
                 <textarea
                     type='text'
@@ -119,14 +119,16 @@ const BookForm = ({ selectedBook, handleSelectionChange, fetchBooks, showNotific
                     columns='10'
                     value={formData.description}
                     name='description'
+                    id='descriptionInput'
+                    maxLength='150'
                     onChange={handleChange}
                 />
             </label>
             <br />
-            <button disabled={editMode || !formDataIsValid()} onClick={handleSubmitNew}>Save New</button>
-            <button disabled={!editMode || !formDataIsValid()} onClick={handleSubmitEdit}>Save</button>
-            <button disabled={!editMode} onClick={handleDeleteButton}>Delete</button>
-            <button disabled={!editMode} onClick={handleCancelButton}>Cancel</button>
+            <button disabled={editMode || !formDataIsValid()} onClick={handleSubmitNew} id='saveNewButton'>Save New</button>
+            <button disabled={!editMode || !formDataIsValid()} onClick={handleSubmitEdit} id='saveEditedButton'>Save</button>
+            <button disabled={!editMode} onClick={handleDeleteButton} id='deleteButton'>Delete</button>
+            <button disabled={!editMode} onClick={handleCancelButton} id='cancelButton'>Cancel</button>
         </div>
     )
 

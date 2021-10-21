@@ -1,10 +1,12 @@
 const mongoose = require ('mongoose')
 const express = require('express')
+const cors = require('cors')
 require('dotenv').config()
 
 const logger = require('./utils/logger')
 const middleware = require('./utils/middleware')
 const booksRouter = require('./controllers/books')
+
 
 const app = express()
 
@@ -21,9 +23,15 @@ mongoose.connect(MONGO_URI, {
     .catch((error) => {
         logger.error('Error connecting:', error.message)
     })
-
+app.use(cors())
 app.use(express.json())
 app.use('/api/books', booksRouter)
+if (process.env.NODE_ENV === 'test') {
+    const testingRouter = require('./controllers/testing')
+    app.use('/api/testing', testingRouter)
+}
 app.use(middleware.errorHandler)
+
+
 
 module.exports = app

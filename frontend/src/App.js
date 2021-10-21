@@ -44,11 +44,15 @@ const App = () => {
 
 
     return (
-        <div>
+        <div className='mainContainer'>
             <Notification
                 message={notification?.info || notification?.error}
-                className={notification?.error ? 'error' : 'info'}
+                className={`
+                    ${notification?.error ? 'error' : 'info'}
+                    notification
+                `}
             />
+            <br />
             <BookForm
                 selectedBook={selectedBook}
                 handleSelectionChange={handleSelectionChange}
@@ -57,6 +61,7 @@ const App = () => {
             />
             <BookList
                 books={books}
+                selectedBook={selectedBook}
                 handleSelectionChange={handleSelectionChange}
             />
         </div>
