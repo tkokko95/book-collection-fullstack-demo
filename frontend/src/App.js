@@ -5,8 +5,6 @@ import BookList from './components/BookList'
 import BookForm from './components/BookForm'
 import Notification from './components/Notification'
 
-
-
 const App = () => {
     const [books, setBooks] = useState([])
     const [selectedBook, setSelectedBook] = useState({
@@ -15,6 +13,10 @@ const App = () => {
         description: ''
     })
     const [notification, setNotification] = useState(null)
+
+    useEffect(() => {
+        fetchBooks()
+    }, [])
 
     const fetchBooks = async () => {
         try {
@@ -34,14 +36,9 @@ const App = () => {
         }, 5000)
     }
 
-    useEffect(() => {
-        fetchBooks()
-    }, [])
-
     const handleSelectionChange = (book) => {
         setSelectedBook(book)
     }
-
 
     return (
         <div className='mainContainer'>

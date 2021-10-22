@@ -10,17 +10,16 @@ const BookForm = ({ selectedBook, handleSelectionChange, fetchBooks, showNotific
     const [formData, setFormData] = useState(blankForm)
     const editMode = selectedBook.title ? true : false
 
+    useEffect(() => {
+        setFormData(selectedBook)
+    }, [selectedBook])
+
     const formDataIsValid = () => {
         if (formData.title && formData.author) {
             return true
         }
         return false
     }
-
-
-    useEffect(() => {
-        setFormData(selectedBook)
-    }, [selectedBook])
 
     const handleSubmitNew = async () => {
         try {
@@ -131,7 +130,6 @@ const BookForm = ({ selectedBook, handleSelectionChange, fetchBooks, showNotific
             <button disabled={!editMode} onClick={handleCancelButton} id='cancelButton'>Cancel</button>
         </div>
     )
-
 }
 
 export default BookForm
