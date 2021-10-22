@@ -7,7 +7,6 @@ const logger = require('./utils/logger')
 const middleware = require('./utils/middleware')
 const booksRouter = require('./controllers/books')
 
-
 const app = express()
 app.use(cors())
 app.use(express.json())
