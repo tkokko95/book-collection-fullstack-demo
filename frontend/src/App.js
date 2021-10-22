@@ -5,8 +5,6 @@ import BookList from './components/BookList'
 import BookForm from './components/BookForm'
 import Notification from './components/Notification'
 
-
-
 const App = () => {
     const [books, setBooks] = useState([])
     const [selectedBook, setSelectedBook] = useState({
@@ -16,32 +14,24 @@ const App = () => {
     })
     const [notification, setNotification] = useState(null)
 
+    useEffect(() => {
+        fetchBooks()
+    }, [])
+
     const fetchBooks = async () => {
         try {
             const fetchedBooks = await booksService.getAll()
             setBooks(fetchedBooks)
         } catch (error) {
-            showNotification({
+            setNotification({
                 error: 'Failed to fetch data from the server'
             })
         }
     }
 
-    const showNotification = (notification) => {
-        setNotification(notification)
-        setTimeout(() => {
-            setNotification(null)
-        }, 5000)
-    }
-
-    useEffect(() => {
-        fetchBooks()
-    }, [])
-
     const handleSelectionChange = (book) => {
         setSelectedBook(book)
     }
-
 
     return (
         <div className='mainContainer'>
@@ -57,7 +47,7 @@ const App = () => {
                 selectedBook={selectedBook}
                 handleSelectionChange={handleSelectionChange}
                 fetchBooks={fetchBooks}
-                showNotification={showNotification}
+                setNotification={setNotification}
             />
             <BookList
                 books={books}

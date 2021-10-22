@@ -148,7 +148,6 @@ test('Description can\'t be longer than 150 characters', async () => {
         .expect(400)
 })
 
-
 test('Malformatted and valid but nonexistent IDs are handled accordingly', async () => {
     await api
         .delete('/api/books/ThisIsAnInvalidId')
@@ -158,7 +157,6 @@ test('Malformatted and valid but nonexistent IDs are handled accordingly', async
         .delete('/api/books/616f30000c866101c7d33e0e')
         .expect(404)
 })
-
 
 afterAll(() => {
     mongoose.disconnect()

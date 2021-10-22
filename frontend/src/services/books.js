@@ -23,5 +23,4 @@ const remove = async (id) => {
 }
 
 const booksService = { getAll, create, update, remove }
-
 export default booksService

@@ -1,12 +1,12 @@
 describe('Library App', function() {
     beforeEach(function() {
         cy.request('POST', 'http://localhost:3001/api/testing/reset')
-        cy.request('POST', 'http://localhost:3000/api/books', {
+        cy.request('POST', 'http://localhost:3001/api/books', {
             title: 'ExampleBook',
             author: 'ExampleAuthor',
             description: 'ExampleDescription'
         })
-        cy.visit('http://localhost:3000')
+        cy.visit('http://localhost:3000') // We assume that the tests are run on the production build, this must be changed accordingly if we're using the production build instead
     })
 
     it('App opens and books are shown', function() {

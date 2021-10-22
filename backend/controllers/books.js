@@ -45,7 +45,7 @@ booksRouter.post('/', async (request, response, next) => {
         const newBook = new Book(request.body)
         const savedBook = await newBook.save()
         response.status(201).json(savedBook)
-    } catch (error) {
+    } catch(error) {
         next(error)
     }
 })
