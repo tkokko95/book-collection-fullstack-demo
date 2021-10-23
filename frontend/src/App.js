@@ -23,17 +23,10 @@ const App = () => {
             const fetchedBooks = await booksService.getAll()
             setBooks(fetchedBooks)
         } catch (error) {
-            showNotification({
+            setNotification({
                 error: 'Failed to fetch data from the server'
             })
         }
-    }
-
-    const showNotification = (notification) => {
-        setNotification(notification)
-        setTimeout(() => {
-            setNotification(null)
-        }, 5000)
     }
 
     const handleSelectionChange = (book) => {
@@ -54,7 +47,7 @@ const App = () => {
                 selectedBook={selectedBook}
                 handleSelectionChange={handleSelectionChange}
                 fetchBooks={fetchBooks}
-                showNotification={showNotification}
+                setNotification={setNotification}
             />
             <BookList
                 books={books}

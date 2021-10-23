@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import booksService from '../services/books'
 
-const BookForm = ({ selectedBook, handleSelectionChange, fetchBooks, showNotification }) => {
+const BookForm = ({ selectedBook, handleSelectionChange, fetchBooks, setNotification }) => {
     const blankForm = {
         title: '',
         author: '',
@@ -23,14 +23,14 @@ const BookForm = ({ selectedBook, handleSelectionChange, fetchBooks, showNotific
 
     const handleSubmitNew = async () => {
         try {
-            await booksService.create(formData)
+            const response = await booksService.create(formData)
             await fetchBooks()
             setFormData(blankForm)
-            showNotification({
-                info: 'Book succesfully added'
+            setNotification({
+                info: `Book succesfully added: ${response.title}`
             })
         } catch(error) {
-            showNotification({
+            setNotification({
                 error: `${error}: Make sure that the title doesn't already exist`
             })
         }
@@ -38,14 +38,14 @@ const BookForm = ({ selectedBook, handleSelectionChange, fetchBooks, showNotific
 
     const handleSubmitEdit = async () => {
         try {
-            await booksService.update(formData, selectedBook.id)
+            const response = await booksService.update(formData, selectedBook.id)
             setFormData(blankForm)
             handleSelectionChange(blankForm)
-            showNotification({
-                info: 'Book successfully modified'
+            setNotification({
+                info: `Book successfully modified: ${response.title}`
             })
         } catch(error) {
-            showNotification({
+            setNotification({
                 error: `${error.message}: This item might have been deleted`
             })
         } finally {
@@ -55,14 +55,15 @@ const BookForm = ({ selectedBook, handleSelectionChange, fetchBooks, showNotific
 
     const handleDeleteButton = async () => {
         try {
+            const bookToDelete = selectedBook.title
             await booksService.remove(selectedBook.id)
             setFormData(blankForm)
             handleSelectionChange(blankForm)
-            showNotification({
-                info: 'Book successfully deleted'
+            setNotification({
+                info: `Book successfully deleted: ${bookToDelete}`
             })
         } catch(error) {
-            showNotification({
+            setNotification({
                 error: `${error.message}: This item might have already been deleted`
             })
         } finally {
