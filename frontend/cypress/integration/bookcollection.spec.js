@@ -19,7 +19,7 @@ describe('Library App', function() {
         cy.get('#authorInput').type('testauthor')
         cy.get('#saveNewButton').click()
         cy.wait(1000)
-        cy.contains('testtitle')
+        cy.get('.bookList').contains('testtitle')
         cy.contains('Book succesfully added')
     })
 
@@ -38,7 +38,7 @@ describe('Library App', function() {
         cy.contains('ExampleBook').click()
         cy.get('#deleteButton').click()
         cy.wait(1000)
-        cy.contains('ExampleBook').should('not.exist')
+        cy.get('.bookList').contains('ExampleBook').should('not.exist')
         cy.contains('Book successfully deleted')
     })
     it('Book information can be changed, notification is shown', function() {
@@ -47,7 +47,7 @@ describe('Library App', function() {
         cy.get('#saveEditedButton').click()
         cy.wait(1000)
         cy.contains('Book successfully modified')
-        cy.contains('ExampleBook').click()
+        cy.get('.bookList').contains('ExampleBook').click()
         cy.contains('ChangedDescription')
     })
 
