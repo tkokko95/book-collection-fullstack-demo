@@ -10,12 +10,11 @@ const errorHandler = (error, request, response, next) => {
                 errorMessage: 'Malformatted object ID',
                 errorName: error.name })
         }
-        else {
-            return response.status(400).json({
-                errorMessage: error.message,
-                errorName: error.name
-            })
-        }
+        return response.status(400).json({
+            errorMessage: error.message,
+            errorName: error.name
+        })
+        
 
     case 'ValidationError':
         return response.status(400).json({

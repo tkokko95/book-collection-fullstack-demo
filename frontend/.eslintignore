@@ -1,2 +1,5 @@
 .eslintrc.js
-node_modules
+node_modules/
+cypress/fixtures/
+cypress/plugins/
+cypress/support/

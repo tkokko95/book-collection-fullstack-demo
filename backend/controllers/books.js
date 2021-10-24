@@ -15,8 +15,7 @@ booksRouter.delete('/:id', async (request, response, next) => {
         const bookToDelete = await Book.findById(request.params.id)
         if (!bookToDelete) {
             response.status(404).json({ errorMessage: 'Object ID doesn\'t exist' })
-        }
-        else {
+        } else {
             await bookToDelete.remove()
             response.status(204).end()
         }
@@ -31,8 +30,7 @@ booksRouter.put('/:id', async (request, response, next) => {
         const updatedBook = await Book.findByIdAndUpdate(request.params.id, book, {new: true})
         if (!updatedBook) {
             response.status(404).json({ errorMessage: 'Object ID doesn\'t exist' })
-        }
-        else {
+        } else {
             response.json(updatedBook)
         }
     } catch(error) {
