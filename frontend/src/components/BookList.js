@@ -1,5 +1,5 @@
 import React from 'react'
-const BookList = ({ books, handleSelectionChange, selectedBook }) => {
+const BookList = ({ books, setSelectedBook, selectedBook }) => {
     const sortedBooks = books.sort((a, b) => a.author.localeCompare(b.author))
 
     return(
@@ -9,7 +9,7 @@ const BookList = ({ books, handleSelectionChange, selectedBook }) => {
                     <li
                         key={book.id}
                         className={selectedBook?.id === book.id ? 'selectedBook' : 'book'}
-                        onClick={() => handleSelectionChange(book)}
+                        onClick={() => setSelectedBook(book)}
                     >
                         {book.author} - <strong>{book.title}</strong>
                     </li>

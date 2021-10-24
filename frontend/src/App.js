@@ -29,10 +29,6 @@ const App = () => {
         }
     }
 
-    const handleSelectionChange = (book) => {
-        setSelectedBook(book)
-    }
-
     return (
         <div className='mainContainer'>
             <Notification
@@ -45,14 +41,14 @@ const App = () => {
             <br />
             <BookForm
                 selectedBook={selectedBook}
-                handleSelectionChange={handleSelectionChange}
+                setSelectedBook={setSelectedBook}
                 fetchBooks={fetchBooks}
                 setNotification={setNotification}
             />
             <BookList
                 books={books}
                 selectedBook={selectedBook}
-                handleSelectionChange={handleSelectionChange}
+                setSelectedBook={setSelectedBook}
             />
         </div>
     )

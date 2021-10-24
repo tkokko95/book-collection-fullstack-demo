@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import booksService from '../services/books'
+import FormFields from './FormFields'
 
-const BookForm = ({ selectedBook, handleSelectionChange, fetchBooks, setNotification }) => {
+const BookForm = ({ selectedBook, setSelectedBook, fetchBooks, setNotification }) => {
     const blankForm = {
         title: '',
         author: '',
@@ -40,7 +41,7 @@ const BookForm = ({ selectedBook, handleSelectionChange, fetchBooks, setNotifica
         try {
             const response = await booksService.update(formData, selectedBook.id)
             setFormData(blankForm)
-            handleSelectionChange(blankForm)
+            setSelectedBook(blankForm)
             setNotification({
                 info: `Book successfully modified: ${response.title}`
             })
@@ -58,7 +59,7 @@ const BookForm = ({ selectedBook, handleSelectionChange, fetchBooks, setNotifica
             const bookToDelete = selectedBook.title
             await booksService.remove(selectedBook.id)
             setFormData(blankForm)
-            handleSelectionChange(blankForm)
+            setSelectedBook(blankForm)
             setNotification({
                 info: `Book successfully deleted: ${bookToDelete}`
             })
@@ -72,7 +73,7 @@ const BookForm = ({ selectedBook, handleSelectionChange, fetchBooks, setNotifica
     }
 
     const handleCancelButton = () => {
-        handleSelectionChange(blankForm)
+        setSelectedBook(blankForm)
     }
 
     const handleChange = (event) => {
@@ -84,51 +85,38 @@ const BookForm = ({ selectedBook, handleSelectionChange, fetchBooks, setNotifica
 
     return(
         <div className='bookForm'>
-            <label>
-                Title *
-                <br/>
-                <input
-                    type='text'
-                    value={formData.title}
-                    name='title'
-                    id='titleInput'
-                    onChange={handleChange}
-                    maxLength='50'
-                />
-            </label>
-            <br />
-            <label>
-                Author *
-                <br/>
-                <input
-                    type='text'
-                    value={formData.author}
-                    name='author'
-                    id='authorInput'
-                    onChange={handleChange}
-                    maxLength='50'
-                />
-            </label>
-            <br />
-            <label>
-                Description
-                <br/>
-                <textarea
-                    type='text'
-                    rows='10'
-                    columns='10'
-                    value={formData.description}
-                    name='description'
-                    id='descriptionInput'
-                    maxLength='150'
-                    onChange={handleChange}
-                />
-            </label>
-            <br />
-            <button disabled={editMode || !formDataIsValid()} onClick={handleSubmitNew} id='saveNewButton'>Save New</button>
-            <button disabled={!editMode || !formDataIsValid()} onClick={handleSubmitEdit} id='saveEditedButton'>Save</button>
-            <button disabled={!editMode} onClick={handleDeleteButton} id='deleteButton'>Delete</button>
-            <button disabled={!editMode} onClick={handleCancelButton} id='cancelButton'>Cancel</button>
+            <FormFields
+                formData={formData}
+                handleChange={handleChange}
+            />
+            <button
+                disabled={editMode || !formDataIsValid()}
+                onClick={handleSubmitNew}
+                id='saveNewButton'
+            >
+                Save New
+            </button>
+            <button
+                disabled={!editMode || !formDataIsValid()}
+                onClick={handleSubmitEdit}
+                id='saveEditedButton'
+            >
+                Save
+            </button>
+            <button
+                disabled={!editMode}
+                onClick={handleDeleteButton}
+                id='deleteButton'
+            >
+                Delete
+            </button>
+            <button
+                disabled={!editMode}
+                onClick={handleCancelButton}
+                id='cancelButton'
+            >
+                Cancel
+            </button>
         </div>
     )
 }
