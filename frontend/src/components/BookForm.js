@@ -15,9 +15,7 @@ const BookForm = ({ selectedBook, setSelectedBook, fetchBooks, setNotification }
         setFormData(selectedBook)
     }, [selectedBook])
 
-    const formDataIsValid = () => {
-        return (formData.title && formData.author)
-    }
+    const formDataIsValid = formData.title && formData.author
 
     const handleChange = (event) => {
         setFormData({
@@ -36,8 +34,10 @@ const BookForm = ({ selectedBook, setSelectedBook, fetchBooks, setNotification }
             })
         } catch(error) {
             setNotification({
-                error: `${error}: Make sure that the title doesn't already exist`
+                error: `${error.response.data.errorName}: Make sure that the title doesn't already exist`
             })
+        } finally {
+            await fetchBooks()
         }
     }
 
@@ -51,7 +51,7 @@ const BookForm = ({ selectedBook, setSelectedBook, fetchBooks, setNotification }
             })
         } catch(error) {
             setNotification({
-                error: `${error.message}: This item might have been deleted`
+                error: `${error.response.data.errorMessage}: This item might have been deleted`
             })
         } finally {
             await fetchBooks()
@@ -69,7 +69,7 @@ const BookForm = ({ selectedBook, setSelectedBook, fetchBooks, setNotification }
             })
         } catch(error) {
             setNotification({
-                error: `${error.message}: This item might have already been deleted`
+                error: `${error.response.data.errorMessage}: This item might have already been deleted`
             })
         } finally {
             await fetchBooks()
@@ -88,18 +88,18 @@ const BookForm = ({ selectedBook, setSelectedBook, fetchBooks, setNotification }
                 handleChange={handleChange}
             />
             <button
-                disabled={editMode || !formDataIsValid()}
+                disabled={editMode || !formDataIsValid}
                 onClick={handleSubmitNew}
                 id='saveNewButton'
             >
                 Save New
             </button>
             <button
-                disabled={!editMode || !formDataIsValid()}
+                disabled={!editMode || !formDataIsValid}
                 onClick={handleSubmitEdit}
                 id='saveEditedButton'
             >
-                Save
+                Save Changes
             </button>
             <button
                 disabled={!editMode}

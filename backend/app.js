@@ -24,7 +24,7 @@ if (process.env.NODE_ENV === 'test') {
 }
 app.use(middleware.errorHandler)
 
-// We assume seperate DB:s are to be used in test and production/dev modes
+// We assume that there are separate DBs to be used in test and production/dev modes
 const MONGO_URI = process.env.NODE_ENV === 'test'
     ? process.env.MONGO_TEST_URI
     : process.env.MONGO_URI

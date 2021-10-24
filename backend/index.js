@@ -9,6 +9,7 @@ server.listen(PORT, () => {
     logger.info(`Server started on port ${PORT}`)
 })
 
+// Not sure if this really matters but it doesn't hurt either
 process.on('SIGINT', () => {
     logger.info('\nSIGINT received. Exiting...')
     server.close()

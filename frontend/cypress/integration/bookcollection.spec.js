@@ -1,4 +1,5 @@
-describe('Library App', function() {
+// These tests can be a bit wonky but they are reliable enough so that any errors can be blamed on the tests instead of the app
+describe('Book Collection App', function() {
     beforeEach(function() {
         cy.request('POST', 'http://localhost:3001/api/testing/reset')
         cy.request('POST', 'http://localhost:3001/api/books', {
@@ -6,12 +7,32 @@ describe('Library App', function() {
             author: 'ExampleAuthor',
             description: 'ExampleDescription'
         })
-        cy.visit('http://localhost:3000') // We assume that the tests are run on the production build, this must be changed accordingly if we're using the production build instead
+
+        // We assume that the tests are run on the production build, this must be changed accordingly if we're using the production build instead
+        cy.visit('http://localhost:3000')
     })
 
     it('App opens and books are shown', function() {
         cy.contains('Title *')
         cy.contains('ExampleBook')
+    })
+
+    it('Save New button is disabled until Title and Author fields are not empty', function() {
+        cy.get('#saveNewButton').should('be.disabled')
+        cy.get('#titleInput').type('ASD')
+        cy.get('#saveNewButton').should('be.disabled')
+        cy.get('#authorInput').type('FSD')
+        cy.get('#saveNewButton').should('not.be.disabled')
+    })
+
+    it('Save Changes button is disabled until Title and Author fields are not empty', function() {
+        cy.contains('ExampleBook').click()
+        cy.get('#titleInput').clear()
+        cy.get('#authorInput').clear()
+        cy.get('#saveEditedButton').should('be.disabled')
+        cy.get('#titleInput').type('ASD')
+        cy.get('#authorInput').type('FSD')
+        cy.get('#saveEditedButton').should('not.be.disabled')
     })
 
     it('Books can be added, notification is shown',function() {

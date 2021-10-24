@@ -1,3 +1,5 @@
+//This router is only used in testing mode, for quick initialization of the database
+
 const testingRouter = require('express').Router()
 const Book = require('../models/book')
 

@@ -6,15 +6,29 @@ const errorHandler = (error, request, response, next) => {
     switch (error.name) {
     case 'CastError':
         if (error.kind === 'ObjectId') {
-            return response.status(400).json({ error: 'Malformatted object ID' })
+            return response.status(400).json({
+                errorMessage: 'Malformatted object ID',
+                errorName: error.name })
         }
         else {
-            return response.status(400).json({ error: error.message })
+            return response.status(400).json({
+                errorMessage: error.message,
+                errorName: error.name
+            })
         }
+
     case 'ValidationError':
-        return response.status(400).json({ error: error.message })
+        return response.status(400).json({
+            errorMessage: error.message,
+            errorName: error.name
+        })
+
     case 'SyntaxError':
-        return response.status(400).json({ error: 'Malformatted request' })
+        return response.status(400).json({
+            errorMessage: 'Malformatted request',
+            errorName: error.name
+        })
+
     default:
         next(error)
     }

@@ -62,11 +62,9 @@ button:active {
 .info {
     border-color: green;
     background-color: lightgreen;
-    position: sticky;
 }
 
 .error {
     border-color: red;
     background-color: lightpink;
-    position: sticky;
 }

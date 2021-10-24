@@ -24,6 +24,7 @@ const initialBookCollection = [
     }
 ]
 
+// We initialize the database with initialBookCollection
 beforeAll(async () => {
     await Book.deleteMany({})
     const bookObjects = initialBookCollection.map((book) => new Book(book))
